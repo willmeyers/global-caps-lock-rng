@@ -1,0 +1,14 @@
+[project]
+name = "global-caps-lock-rng"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "fastapi-limiter>=0.1.6",
+    "fastapi>=0.115.8",
+    "numpy>=2.2.2",
+    "redis>=5.2.1",
+    "uvicorn>=0.34.0",
+    "websockets>=14.2",
+]
