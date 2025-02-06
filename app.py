@@ -1,4 +1,4 @@
-from fastapi import FastAPI, WebSocket, Depends, HTTPException, Query
+from fastapi import FastAPI, WebSocket, Depends, HTTPException, Query, Request
 from fastapi.middleware.cors import CORSMiddleware
 
 import websockets
@@ -45,7 +45,7 @@ class RateLimiter:
 
 
 class RandomNumberGenerator:
-    def __init__(self, buffer_size=1000):
+    def __init__(self, buffer_size=10000):
         self.buffer_size = buffer_size
         self.time_buffer = deque(maxlen=buffer_size)
         self.state_buffer = deque(maxlen=buffer_size)
@@ -109,6 +109,7 @@ rate_limiter = RateLimiter(max_requests=10, time_window=60)
 
 @app.get("/integers")
 async def get_random(
+    request: Request,
     n: Optional[int] = Query(default=10, ge=1, le=1000, description="Number of integers to generate"),
     min_val: Optional[int] = Query(default=0, description="Minimum value (inclusive)"),
     max_val: Optional[int] = Query(default=10, description="Maximum value (inclusive)")
